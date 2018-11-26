@@ -1,6 +1,9 @@
 " Location: plugin/salve.vim
 " Author:   Tim Pope <http://tpo.pe/>
 
+" NB: This is vim-diet-salve, a fork of salve.vim by Dave Yarwood with the
+" classpath detection and projectionist support removed.
+
 if exists('g:loaded_salve')
   finish
 endif
@@ -181,7 +184,6 @@ function! s:activate() abort
   command! -buffer -bar -bang -nargs=* Console call s:repl(<bang>0, <q-args>)
   execute 'compiler' b:salve.compiler
   let &l:errorformat .= ',' . escape('chdir '.b:salve.root, '\,')
-  let &l:errorformat .= ',' . escape('classpath,'.join(s:path(), ','), '\,')
   if get(b:, 'dispatch') =~# ':RunTests '
     let &l:errorformat .= ',%\&buffer=test ' . matchstr(b:dispatch, ':RunTests \zs.*')
   endif
@@ -260,14 +262,8 @@ endfunction
 augroup salve
   autocmd!
   autocmd User FireplacePreConnect call s:connect(1)
-  autocmd FileType clojure
-        \ if s:detect(expand('%:p')) |
-        \  let &l:path = join(s:path(), ',') |
-        \ endif
-  autocmd User ProjectionistDetect call s:projectionist_detect()
-  autocmd User ProjectionistActivate call s:activate()
   autocmd BufReadPost *
-        \ if !exists(':ProjectDo') && s:detect(expand('%:p')) |
+        \ if s:detect(expand('%:p')) |
         \  call s:activate() |
         \ endif
 augroup END
