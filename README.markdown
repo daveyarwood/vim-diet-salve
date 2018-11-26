@@ -1,6 +1,6 @@
 # vim-diet-salve
 
-Tim Pope's original [vim-salve][salve] plugin provided static Vim support for
+Tim Pope's original [vim-salve][salve] plugin provides static Vim support for
 [Leiningen][lein] and [Boot][boot].
 
 > Leiningen ran... [the ants] would get to him soon, despite the salve on

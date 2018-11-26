@@ -5,7 +5,7 @@ License: Same terms as Vim itself (see |license|)
 
 DIET-SALVE                                      *diet-salve*
 
-Tim Pope's original vim-salve plugin provided static Vim support for Leiningen
+Tim Pope's original vim-salve plugin provides static Vim support for Leiningen
 and Boot.
 
 vim-diet-salve is a trimmed-down version of vim-salve with some features
