@@ -1,0 +1,56 @@
+*diet-salve.txt*  Static support for Leiningen/Boot, now with less calories!
+
+Author:  Dave Yarwood <https://djy.io>
+License: Same terms as Vim itself (see |license|)
+
+DIET-SALVE                                      *diet-salve*
+
+Tim Pope's original vim-salve plugin provided static Vim support for Leiningen
+and Boot.
+
+vim-diet-salve is a trimmed-down version of vim-salve with some features
+removed, as a trade-off to allow the benefits of the remaining features to be
+had without having to endure the cost of long Vim startup time that occurs as
+a result of the classpath detection that vim-salve does.
+
+What follows is straight out of `:help salve`, with the only changes being
+deletions of features that vim-diet-salve does not support.
+
+INTRODUCTION                                    *salve*
+
+Salve.vim automatically activates when it finds a project.clj
+or build.boot in a parent directory of the current file. 
+
+If `g:salve_auto_start_repl` is set, salve.vim will attempt to make a REPL
+connection for you.
+
+REPL SUPPORT                                    *salve-repl*
+
+Each time |fireplace| attempts to use a repl connection, salve.vim will
+try to automatically connect using target/repl-port or target/repl/repl-port.
+(Fireplace itself supports the newer standard .nrepl-port.)  If none of the 3
+port files exist, :Console! (see below) is invoked to automatically start a
+repl.
+
+                                                *salve-:Console*
+:Console                Invoke `lein repl` or `boot repl` using |:dispatch-:Start|.
+
+:Console!               Like :Console, but start in the background.
+
+If a suitably fresh repl is running when an updated classpath is required, it
+will be used instead of shelling out to determine the classpath.
+
+COMPILER                                        *salve-compiler*
+
+The included lein and boot compiler plugins are automatically invoked
+for Leiningen or Boot projects so that |:make| (or |dispatch-:Make|)
+will invoke `lein` or `boot`. 
+
+ABOUT                                           *salve-about*
+
+Grab the latest version or report a bug on GitHub:
+
+http://github.com/tpope/vim-salve
+http://github.com/daveyarwood/vim-diet-salve
+
+ vim:tw=78:et:ft=help:norl:
