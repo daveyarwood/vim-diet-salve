@@ -37,7 +37,7 @@ read on!
 * Autoconnect [fireplace.vim][fireplace] to the REPL, or autostart it with
   `:Console`.
 
-* Use `:make` to invoke `lein` or `boot`, complete with stacktrace parsing.
+* Use `:make` to invoke `lein` or `boot`.
 
 ## What's missing?
 
@@ -55,6 +55,9 @@ Consequently, the following features of vim-salve are not supported:
 
 * Support for `:find` and `gf`, which let you navigate to a file on Vim's
   `path`.
+
+* When using `:make` to invoke `lein` or `boot`, there is no special parsing of
+  stacktraces based on the classpath.
 
 ## Installation
 
