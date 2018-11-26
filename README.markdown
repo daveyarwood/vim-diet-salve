@@ -1,59 +1,84 @@
-# salve.vim
+# vim-diet-salve
 
-Static Vim support for [Leiningen][] and [Boot][].
+Tim Pope's original [vim-salve][salve] plugin provided static Vim support for
+[Leiningen][lein] and [Boot][boot].
 
 > Leiningen ran... [the ants] would get to him soon, despite the salve on
 > his boots.
 
 -- from "Leiningen versus the Ants"
 
+One of the features of vim-salve is that it seeds Vim's `path` with the JVM
+classpath in order to enable certain behaviors such as determining the location
+of your source code for navigation commands, etc.
+
+Unfortunately, as a consequence (and out of necessity for the features it
+provides), there is a noticeable delay of several seconds or more when
+starting Vim; this happens the first time you open Vim in a particular
+Clojure project directory, and then each time the project manifest file changes
+(e.g. `project.clj` or `build.boot`, or `~/.lein/profiles.clj` or
+`~/.boot/profile.boot`).
+
+You might view this as an acceptable trade-off for some of the features of
+vim-salve that having Vim's `path` seeded with the classpath enables. If that's
+true for you, then you should use vim-salve.
+
+If you're like me, you find the frequent disruption of long Vim startup times to
+be more cumbersome than the classpath-aware features are worth. But maybe there
+are some features of vim-salve that you still want to utilize, if possible,
+without enduring the long Vim startup times. If this piques your interest, then
+read on!
+
 ## Features
 
 * `:Console` command to start a REPL or focus an existing instance if already
-  running using [dispatch.vim][].
-* Autoconnect [fireplace.vim][] to the REPL, or autostart it with `:Console`.
-* [Navigation commands][projectionist.vim]: `:Esource`, `:Emain`, `:Etest`,
-  and `:Eresource`.
-* Alternate between test and implementation with `:A`.
-* Use `:make` to invoke `lein` or `boot`, complete with stacktrace parsing.
-* Default [dispatch.vim][]'s `:Dispatch` to running the associated test file.
-* `'path'` is seeded with the classpath to enable certain static Vim and
-  [fireplace.vim][] behaviors.
+  running using [dispatch.vim][dispatch].
 
-[Leiningen]: http://leiningen.org/
-[Boot]: http://boot-clj.com/
-[fireplace.vim]: https://github.com/tpope/vim-fireplace
-[dispatch.vim]: https://github.com/tpope/vim-dispatch
-[projectionist.vim]: https://github.com/tpope/vim-projectionist
+* Autoconnect [fireplace.vim][fireplace] to the REPL, or autostart it with
+  `:Console`.
+
+* Use `:make` to invoke `lein` or `boot`, complete with stacktrace parsing.
+
+## What's missing?
+
+vim-diet-salve is essentially vim-salve, but without the following aspects:
+
+* Does not detect the classpath and use it to set Vim's `path`.
+
+* Does not integrate with the [projectionist][] workflow.
+
+Consequently, the following features of vim-salve are not supported:
+
+* Source navigation commands:
+  * `:Emain`, `:Esource`, `:Etest` and `:Eresource`
+  * `:A` to alternate between test and implementation
+
+* Support for `:find` and `gf`, which let you navigate to a file on Vim's
+  `path`.
 
 ## Installation
 
-If you don't have a preferred installation method, I recommend
-installing [pathogen.vim](https://github.com/tpope/vim-pathogen), and
-then simply copy and paste:
+Using your preferred method of installing Vim plugins, install the following
+plugins:
 
-    cd ~/.vim/bundle
-    git clone git://github.com/tpope/vim-salve.git
-    git clone git://github.com/tpope/vim-projectionist.git
-    git clone git://github.com/tpope/vim-dispatch.git
-    git clone git://github.com/tpope/vim-fireplace.git
+```
+daveyarwood/vim-diet-salve
+tpope/vim-dispatch
+tpope/vim-fireplace
+```
 
 Once help tags have been generated, you can view the manual with
 `:help salve`.
 
-## FAQ
-
-> Why does it sometimes take a few extra seconds for Vim to startup?
-
-Much of the functionality of salve.vim depends on knowing the classpath.
-When possible, this is retrieved from a [fireplace.vim][] connection, but if
-not, this means a call to `lein classpath` or `boot show --fake-classpath`.
-
-Once retrieved, the classpath is cached until a project manifest file
-changes: for Leiningen `project.clj` or `~/.lein/profiles.clj`, for Boot
-`build.boot` or `~/.boot/profile.boot`.
-
 ## License
 
-Copyright © Tim Pope.  Distributed under the same terms as Vim itself.
-See `:help license`.
+vim-diet-salve is a fork of [vim-salve][salve]; which is copyright © Tim Pope.
+Distributed under the same terms as Vim itself. See `:help license`.
+
+[salve]: https://github.com/tpope/vim-salve
+[lein]: http://leiningen.org/
+[boot]: http://boot-clj.com/
+[projectionist]: https://github.com/tpope/vim-projectionist
+[fireplace]: https://github.com/tpope/vim-fireplace
+[dispatch]: https://github.com/tpope/vim-dispatch
+
